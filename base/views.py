@@ -57,7 +57,8 @@ def register_page(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'An error occurred during registration')
+            error_massage = form.errors['password2']
+            messages.error(request, error_massage)
 
     return render(request, 'base/login_register.html', {'form': form})
 
