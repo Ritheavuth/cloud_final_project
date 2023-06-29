@@ -244,10 +244,6 @@ a {
   fill: var(--color-light);
 }
 
-.mobile-menu {
-  margin-bottom: 3rem;
-}
-
 @media screen and (min-width: 500px) {
   .mobile-menu .header__search {
     display: none;
@@ -617,6 +613,10 @@ a {
     justify-content: center;
     gap: 1rem;
   }
+
+  .mobile-menu {
+    margin-bottom: 3rem;
+  }
 }
 
 /*==============================
@@ -768,6 +768,11 @@ a {
   display: block;
 }
 
+.activities__boxHeader p span.user__name {
+  color: var(--color-light);
+  font-size: 1.4rem;
+}
+
 .activities__boxContent {
   margin-left: 4.2rem;
 }
@@ -805,7 +810,16 @@ a {
 ================================*/
 
 .update-account.layout .layout__box {
+  margin-bottom: 2.5rem;
   max-width: 68rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, 0%);
+  background-color: var(--color-dark);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 /*==============================
@@ -1168,8 +1182,12 @@ a {
   font-weight: 1.4rem;
 }
 
-ul{
+ul {
   list-style-type: none;;
   margin-bottom: 1.5rem;
   color: var(--color-error)
+}
+
+p > span > .user__name {
+  color: var(--color-light);
 }
