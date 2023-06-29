@@ -11,7 +11,7 @@
   --color-light-gray: #b2bdbd;
   --color-bg: #2d3934;
   --color-success: #5dd693;
-  --color-error: #fc4b0b;
+  --color-error: #ff7155;
 }
 
 /*========== base styles ==========*/
@@ -1162,4 +1162,10 @@ a {
   font-weight: 500;
   color: var(--color-main);
   font-weight: 1.4rem;
+}
+
+ul{
+  list-style-type: none;;
+  margin-bottom: 1.5rem;
+  color: var(--color-error)
 }
