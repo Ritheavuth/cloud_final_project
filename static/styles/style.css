@@ -200,6 +200,7 @@ a {
 
 .scroll::-webkit-scrollbar {
   width: 0.6rem;
+  border-radius: 1rem;
   background-color: rgb(41, 41, 46);
 }
 
@@ -260,7 +261,19 @@ a {
 
 .header {
   padding: 1.5rem;
+  max-height: 8rem;
   background-color: var(--color-dark);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.navbar__space {
+  margin: 0;
+  padding: 3.5rem;
+  max-width: 8rem;
 }
 
 .header > .container {
@@ -276,8 +289,8 @@ a {
 }
 
 .header__logo > img {
-  height: 3.2rem;
-  width: 3.2rem;
+  height: 4rem;
+  width: 4rem;
 }
 
 .header__logo > h1 {
@@ -470,6 +483,10 @@ a {
 /*==============================
 =>  Topics
 ================================*/
+
+.topics {
+  padding-bottom: 3.5rem;
+}
 
 .form__group {
   margin-bottom: 2rem;
@@ -735,6 +752,7 @@ a {
 ================================*/
 
 .activities {
+  margin-bottom: 1.5rem;
   background: var(--color-dark);
   border-radius: 5px;
   overflow: hidden;
@@ -802,7 +820,17 @@ a {
 ================================*/
 
 .create-room.layout .layout__box {
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
   max-width: 68rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, 0%);
+  background-color: var(--color-dark);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 /*==============================
@@ -844,6 +872,18 @@ a {
 .auth .layout__boxHeader {
   text-align: center;
   justify-content: center;
+}
+
+.auth.layout .layout__box {
+  margin-bottom: 2.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, 0%);
+  background-color: var(--color-dark);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .auth__action {
@@ -918,6 +958,7 @@ a {
 
 .room,
 .participants {
+  margin-bottom: 2rem;
   background: var(--color-dark);
   max-height: 87.5vh;
   border-radius: 0.7rem;
@@ -982,8 +1023,8 @@ a {
 }
 
 .room__header {
-  max-height: 30vh;
-  overflow-y: auto;
+  max-height: 28vh;
+  overflow: hidden;
   position: absolute;
   width: 95%;
   background: var(--color-dark);
@@ -1116,7 +1157,7 @@ a {
 }
 
 .room__message {
-  padding: 2rem;
+  padding: 0rem 2rem;
   position: absolute;
   z-index: 111;
   bottom: 0;
@@ -1131,7 +1172,7 @@ a {
   color: var(--color-light);
   border: none;
   outline: none;
-  border-radius: 0.7rem;
+  border-radius: 0.7rem 0.7rem 0rem 0rem;
   height: 4.5rem;
   width: 100%;
   margin-top: -1rem;

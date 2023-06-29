@@ -125,7 +125,8 @@ def create_room(request):
     context = {
         'action': 'Create Room',
         'form': form,
-        'topics': topics
+        'topics': topics,
+        'room': room,
     }
     return render(request, 'base/room_form.html', context)
 
