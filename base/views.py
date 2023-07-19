@@ -98,11 +98,13 @@ def room(request, pk):
 
 def user_profile(request, pk):
     user = User.objects.get(id=pk)
-    rooms = user.room_set.all()
+    user_rooms = user.room_set.all()
+    rooms = Room.objects.all()
     room_messages = user.message_set.all()
     topics = Topic.objects.all()
+    page = 'profile'
 
-    context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
+    context = {'user': user, 'user_rooms': user_rooms, 'room_messages': room_messages, 'topics': topics, 'rooms': rooms, 'page': page}
     return render(request, 'base/profile.html', context)
 
 
@@ -199,6 +201,9 @@ def update_user(request):
         if form.is_valid():
             form.save()
             return redirect('user-profile', pk=user.id)
+        else:
+            error_message = list(form.errors.values())[0:2][0]
+            messages.error(request, error_message)
 
     return render(request, 'base/update-user.html', {'form': form})
 
@@ -206,7 +211,10 @@ def update_user(request):
 def topics_page(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     topics = Topic.objects.filter(name__icontains=q)
-    return render(request, 'base/topics.html', {'topics': topics})
+    rooms = Room.objects.all()
+    all_room = Room.objects.all()
+    context = {'topics': topics, 'rooms': rooms, 'all_room': all_room}
+    return render(request, 'base/topics.html', context)
 
 
 def activity_page(request):
