@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-(6yfeu^c%e^%vcjff^i!p3r25kh0ea_bm*vio!el3sqm^r7kq9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,14 @@ INSTALLED_APPS = [
     # Apps
     'base.apps.BaseConfig',
 ]
+
+ASGI_APPLICATION = 'studygroup.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 AUTH_USER_MODEL = 'base.User'
 
