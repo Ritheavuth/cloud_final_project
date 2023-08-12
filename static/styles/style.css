@@ -164,13 +164,6 @@ a {
   height: 2.8rem;
 }
 
-.avatar.avatar--small:after {
-  width: 0.7rem;
-  height: 0.7rem;
-  bottom: 0px;
-  right: -6px;
-}
-
 .avatar.avatar--medium img {
   width: 3.6rem;
   height: 3.6rem;

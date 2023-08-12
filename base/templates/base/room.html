@@ -1,4 +1,4 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %} {% load static %} {% block content %}
 
 <main class="profile-page layout layout--2">
   <div class="container">
@@ -150,21 +150,9 @@
     <!--   Start -->
     <div class="participants">
       <h3 class="participants__top">
-        Participants <span>({{participants.count}} Joined)</span>
+        Participants <span id="participants-count"></span>
       </h3>
-      <div class="participants__list scroll">
-        {% for user in participants %}
-        <a href="{% url 'user-profile' user.id %}" class="participant">
-          <div class="avatar avatar--medium">
-            <img src="{{user.avatar.url}}" />
-          </div>
-          <p>
-            {{user.username}}
-            <span>@{{user.username}}</span>
-          </p>
-        </a>
-        {% endfor %}
-      </div>
+      <div id="participants-list" class="participants__list scroll"></div>
     </div>
     <!--  End -->
   </div>
@@ -180,11 +168,104 @@
   };
 
   roomSocket.onmessage = function (event) {
+    console.log("On message", event);
     const data = JSON.parse(event.data);
-    console.log(data)
+    console.log(data);
+    // if (data.type == "join_room") {
+    //   let participants_count = document.getElementById("participants-count");
+    //   participants_count.textContent = `(${data.participants} Online)`;
+
+    //   participant_list_element = document.getElementById("participants-list");
+
+    //   console.log("Element list:", participant_list_element);
+
+    //   participants_list = JSON.parse(data.participants_list);
+
+    //   for (participant in participants_list) {
+    //     var username = participants_list[participant].fields.username;
+    //     var existingParticipant = document.querySelector(
+    //       `.${username}.participant`
+    //     );
+
+    //     if (!existingParticipant) {
+    //       participant_list_element.insertAdjacentHTML(
+    //         "afterbegin",
+    //         `
+    //         <a href="/profile/${participants_list[participant].pk}" class="${username} participant">
+    //             <div class="avatar avatar--medium">
+    //                 <img src="/images/${participants_list[participant].fields.avatar}" />
+    //             </div>
+    //             <p>
+    //                 ${participants_list[participant].fields.name}
+    //                 <span>@${username}</span>
+    //             </p>
+    //         </a>
+    //         `
+    //       );
+    //     }
+    //   }
+
+    //   let participant_list = document.getElementById("participants-list");
+    // }
+
+    if (data.type == "join_room") {
+      let participants_count = document.getElementById("participants-count");
+      participants_count.textContent = `(${data.participants} Online)`;
+
+      participant_list_element = document.getElementById("participants-list");
+
+      console.log("Element list:", participant_list_element);
+
+      participants_list = JSON.parse(data.participants_list);
+      var existingUsernames = new Set();
+
+      for (var i = 0; i < participants_list.length; i++) {
+        existingUsernames.add(participants_list[i].fields.username);
+      }
+
+      var aElements = participant_list_element.getElementsByTagName("a");
+      var elementsToRemove = [];
+
+      for (var i = 0; i < aElements.length; i++) {
+        var aElement = aElements[i];
+        var username = aElement.classList[0]; // Assuming the first class is the username
+        if (!existingUsernames.has(username)) {
+          elementsToRemove.push(aElement);
+        }
+      }
+
+      for (var i = 0; i < elementsToRemove.length; i++) {
+        participant_list_element.removeChild(elementsToRemove[i]);
+      }
+
+      for (participant in participants_list) {
+        var username = participants_list[participant].fields.username;
+        var existingParticipant = document.querySelector(
+          `.${username}.participant`
+        );
+
+        if (!existingParticipant) {
+          participant_list_element.insertAdjacentHTML(
+            "afterbegin",
+            `
+            <a href="/profile/${participants_list[participant].pk}" class="${username} participant">
+                <div class="avatar avatar--medium">
+                    <img src="/images/${participants_list[participant].fields.avatar}" />
+                </div>
+                <p>
+                    ${participants_list[participant].fields.name}
+                    <span>@${username}</span>
+                </p>
+            </a>
+            `
+          );
+        }
+      }
+    }
+
     if (data.type === "chat_message") {
       let messages = document.getElementById("messages");
-
+      console.log(data);
       messages.insertAdjacentHTML(
         "afterbegin",
         `

@@ -1,7 +1,14 @@
-{% for room in rooms %}
-<div class="roomListRoom">
+{% load static %}
+
+<div id="room-list">
+
+  {% for room in rooms %}
+  <div id="roomListRoom" class="roomListRoom">
     <div class="roomListRoom__header">
-      <a href="{% url 'user-profile' room.host.id %}" class="roomListRoom__author">
+      <a
+        href="{% url 'user-profile' room.host.id %}"
+        class="roomListRoom__author"
+      >
         <div class="avatar avatar--small">
           <img src="{{room.host.avatar.url}}" />
         </div>
@@ -41,5 +48,10 @@
       </a>
       <p class="roomListRoom__topic">{{room.topic.name}}</p>
     </div>
+  </div>
+  {% empty %}
+  <div id="roomListRoom" class="roomListRoom">
+    <h6>No Rooms available...</h6>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}

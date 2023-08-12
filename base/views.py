@@ -80,10 +80,10 @@ def home(request):
 def room(request, pk):
     room = Room.objects.get(id=pk)
     room_messages = room.message_set.all().order_by('-created')
-    room.participants.add(request.user)
-    participants = room.participants.all()
+    # room.participants.add(request.user)
+    # participants = room.participants.all()
 
-    context = {'room': room, 'room_messages': room_messages, 'participants': participants}
+    context = {'room': room, 'room_messages': room_messages}
 
     return render(request, 'base/room.html', context)
 
@@ -103,17 +103,7 @@ def user_profile(request, pk):
 def create_room(request):
     form = RoomForm()
     topics = Topic.objects.all()
-    if request.method == "POST":
-        topic_name = request.POST.get('topic')
-        topic, created = Topic.objects.get_or_create(name=topic_name)
 
-        room = Room.objects.create(
-            host=request.user,
-            topic=topic,
-            name=request.POST.get('name'),
-            description=request.POST.get('description'),
-        )
-        return redirect('room', pk=room.id)
     context = {
         'action': 'Create Room',
         'form': form,
