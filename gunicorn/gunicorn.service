@@ -6,8 +6,8 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/studygroup_project
-ExecStart=/home/ubuntu/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/gunicorn.sock studygroup.wsgi:application
+ExecStart=/home/ubuntu/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/studygroup_project/studygroup/studygroup.sock studygroup.wsgi:application
 
-
+       
 [Install]
 WantedBy=multi-user.target
